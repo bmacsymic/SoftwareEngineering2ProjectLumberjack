@@ -1,0 +1,9 @@
+
+Taken from: http://docs.seleniumhq.org/about/license.jsp
+
+Selenium License
+----------------
+
+All Selenium projects are licensed under the Apache 2.0 License.
+
+http://www.apache.org/licenses/LICENSE-2.0

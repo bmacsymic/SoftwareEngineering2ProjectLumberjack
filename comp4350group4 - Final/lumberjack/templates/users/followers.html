@@ -1,0 +1,56 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/followers.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/DT_bootstrap.css') }}" />
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/js/lumberjack/followers.js"></script>
+<script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+
+<script type="text/javascript">
+lastAddedLiveFunc("{{url_for('static', filename='loading.gif')}}", "{{ url_for('user_feeds') }}");
+delete_button("{{url_for('static', filename='loading.gif')}}", "{{ url_for('user_feeds') }}") ;
+
+$(window).scroll(function() {
+	var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
+	var  scrolltrigger = 0.95;
+
+		if ((wintop/(docheight-winheight)) > scrolltrigger) {
+			if (isLastPage() != true) 
+			{
+				lastAddedLiveFunc("{{url_for('static', filename='loading.gif')}}", "{{ url_for('user_feeds') }}");
+			}
+		}
+	});	
+</script>
+{% endblock %}	
+
+{% block content %} 
+	<div class="container">		    
+    	<div id="content-wrapper">
+    		<div id="user-showfollowers">
+				<h3 style="color:white;"><img src="{{user.get_avatar(100)}}"> {{user.username}}, you  currently have {{user.followers.count()}} followers. </h3>
+				<!--   <h4 style="color:white;">{{user.top_user()}} is the most popular Lumberjack! </h4><h3 id= "top_dog"></h3> -->
+			</div> 
+        	<div class="followers-container">
+    			 <div id="user-table"></div>
+    			 <!--  <div id="SelectedRowList"></div> -->
+    			<!--  <a id="DeleteAllButton" href="#">Delete Selected</a>  -->	 
+			</div>
+    		<div id="newsfeed-container">
+    			 <div id="nfTableContainer"></div>
+    			<div class="news-feed"><h3 style="color:white;">News Feed</h3>
+				<div class="items">
+				</div>
+				<div id="lastPostsLoader"></div>
+				</div>
+			</div>
+    		<div id="end-wrapper"></div>
+    	</div>
+    </div>
+
+{% endblock%}

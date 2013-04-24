@@ -1,0 +1,20 @@
+.header-title {
+	padding-top: 20px;
+}
+
+.result-user-pic {
+	float: left;
+}
+
+.result-user-name {
+	float: left;
+	padding-left: 10px;
+}
+
+.clear {
+	clear: both;
+}
+
+.separation {
+	padding-top: 20px;
+}

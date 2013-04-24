@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript " src="{{ url_for('static', filename='js/lumberjack/workout_history.js') }}"></script>
+<script type="text/javascript">
+	current_user = '{{ g.user.username }}';
+	$(document).ready(function(){
+		populateWorkouHistory(current_user);
+	});
+</script>
+
+<div class="container">
+	<h1>{{user.username}}'s Work Out History </h1>
+	<hr>
+	<div class="accordion" id="accordion2">
+		<!-- Work Out History gets added here -->
+	</div>
+</div>
+{% endblock %}

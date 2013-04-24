@@ -1,0 +1,9 @@
+
+Taken from: http://jquery.org/license/
+
+The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.
+
+You are free to use a jQuery project in commercial projects as long as the copyright header is left intact.
+
+https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt
+http://en.wikipedia.org/wiki/MIT_License

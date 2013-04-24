@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="padding-top:50px">
+<h1 align="center">500: Internal Server Error</h1>
+<h5 align="center">It looks like we've broken something on our system. Don't panic. We have been notified and we'll get to it as soon as we can.</h5>
+<div align="center"><img src="{{url_for('static', filename='default.jpg')}}"></div>
+<h4 align="center">Who's responsible for this madness ?</h4>
+<h5 align="center">That would be Shashank C., Cameron H., Lianfeng L., Bradley M., Kyle P., and Jeremy T.<br/>They're the developers and therefore they take responsibility when things break.<br/>So, get in touch with them.</h5>
+<div align="center"><a href={{ url_for('home_index') }}>Home</a>  |  <a href={{ url_for('login') }}>Log In</a></div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+
+<style>
+    .ui-autocomplete-loading 
+    {
+        background: white right center no-repeat;
+    }
+    #workout { width: 10; }
+</style>
+<script type="text/javascript" src="/static/js/lumberjack/workout_search.js"></script>
+
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><small>Search For Workouts</small></h1>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> </a>
+
+                <div class="nav-collapse collapse">
+
+                    <form class="navbar-search pull-left" name="form" onsubmit="return false">
+                        <input id="WorkoutSearchBar" name="key" class="search-query span2" placeholder="Workout Name" >
+                    </form>
+
+                    <form class="navbar-search pull-left" name="form" onsubmit="return false">
+                        <input id="DescriptionSearchBar" name="key" class="search-query span2" placeholder="Description" >
+                    </form>
+
+                    <form class="navbar-search pull-left" name="form" onsubmit="return false">
+                        <input id="AuthorSearchBar" name="key" class="search-query span2" placeholder="Author" >
+                    </form>
+
+                    <form class="navbar-search pull-right" name="form" onsubmit="return false">
+                        <select id="ExerciseSearchBar" class="search-query span3">
+                            <option>Exercise Tag</option> <!-- placeholder -->
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jTable instance -->
+    <div id="WorkoutTableContainer"></div>
+</div>
+{% endblock %}

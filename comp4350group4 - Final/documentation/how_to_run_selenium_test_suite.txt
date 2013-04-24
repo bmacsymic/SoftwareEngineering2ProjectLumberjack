@@ -1,0 +1,23 @@
+Running the selenium test suite
+
+-If you are developing on your local machine with a display & Firefox:
+    - You only need to install the Selenium IDE and Selenium RC Server (http://docs.seleniumhq.org/download/)
+	
+- One way to add more tests to our current suite:
+    - Open Firefox -> go to Tools -> Selenium IDE
+    - File -> Open Test Suite, then find the test_suite.html (path: /lumberjack/tests/selenium/test_suite.html)
+	Remember: New test case files (.html) will be stored in the test_cases folder
+    Remember: Save the test suite to test_suite.html
+    - To save the test results to the test_result.html
+	- Using the terminal: (with no brackets)
+	    - java -jar [path to the jar file you downloaded from the site] -htmlSuite *firefox http://0.0.0.0:5000 [path/to/the/test_suite.html] [path/to/the/test_result.html]
+	
+- To run test on the server (machine with no display):
+    - Since there's no display, we need to set up a virtual display with xvfb
+	- you need to install xvfb and firefox
+	- then run command: /usr/bin/Xvfb :7 -ac -screen 0 1024x768x8
+	- some errors and warnings may appear but command will still run.
+	- NOW, open another terminal, and run: export DISPLAY=":7.0"
+	- Next, run command:
+		- java -jar [path to the jar file you downloaded from the site] -htmlSuite *firefox http://0.0.0.0:5000 [path/to/the/test_suite.html] [path/to/the/test_result.html]	
+	- Remember to close xvfb

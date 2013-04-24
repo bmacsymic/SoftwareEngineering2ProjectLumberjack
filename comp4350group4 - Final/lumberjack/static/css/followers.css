@@ -1,0 +1,105 @@
+   <style>  
+	html, body
+	{
+	 	margin:0;
+	 	padding:0;
+    	height: 100%;
+    	background-color:#FFFFFF;
+	}
+    #content-wrapper 
+    {
+   	 	width:750px;
+    	margin:0 auto;
+    	border-top: 1px solid #96d1f8;
+   		background: #9eacb5;
+   		background: -webkit-gradient(linear, left top, left bottom, from(#3f3f3f), to(#9eacb5));
+   		background: -webkit-linear-gradient(top, #3f3f3f, #9eacb5);
+   		background: -moz-linear-gradient(top, #3f3f3f, #9eacb5);
+   		background: -ms-linear-gradient(top, #3f3f3f, #9eacb5);
+   		background: -o-linear-gradient(top, #3f3f3f, #9eacb5);
+   		padding: 7.5px 15px;
+   		-webkit-border-radius: 9px;
+   		-moz-border-radius: 9px;
+   		border-radius: 9px;
+   		-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		color: black;
+    }
+    #user-showfollowers
+	{
+		padding-top:35px;
+		padding-left:10px
+	}
+    .followers-container
+    {
+    	float:left;
+    	width:200px;
+    	padding:10px;
+    	padding-top:25px; 	     
+    }
+    #user-table
+    {
+    	float:left;
+    	width:200px;
+    	padding:10px;
+    	padding-top:25px;
+    }
+
+    #DeleteAllButton 
+    {
+		float:right ;
+   		border-top: 1px solid #f7f7f7;
+   		background: #626770;
+   		background: -webkit-gradient(linear, left top, left bottom, from(#23252b), to(#626770));
+   		background: -webkit-linear-gradient(top, #23252b, #626770);
+  		background: -moz-linear-gradient(top, #23252b, #626770);
+   		background: -ms-linear-gradient(top, #23252b, #626770);
+   		background: -o-linear-gradient(top, #23252b, #626770);
+   		padding: 3px 7px;
+   		-webkit-border-radius: 8px;
+   		-moz-border-radius: 8px;
+   		border-radius: 8px;
+   		-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		box-shadow: rgba(0,0,0,1) 0 1px 0;
+   		text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   		color: #ffffff;
+   		font-size: 11px;
+   		font-family: Georgia, Serif;
+   		text-decoration: none;
+   		vertical-align: middle;
+   }
+    #newsfeed-container 
+    {
+    	float:right;
+    	width:500px;
+    	padding:20x;
+    	padding-top:25px;
+   		padding-right:10px;
+    }
+    .individual-feed-container
+    {
+    	border: 1px;
+    	border-color:black;
+    	border-style:solid;
+    	background:gray;
+    }
+    .new-prev-posts
+    {
+    	padding-top:15px;
+    	float:center;
+    	color:white;
+    }  
+    #end-wrapper
+    {
+    	clear:both;
+    	padding:5px 10px;
+    	padding-top:100px;
+    	background:transparent;
+    }
+    * html #end-wrapper
+    {
+    	height:1px;
+    }
+	</style>

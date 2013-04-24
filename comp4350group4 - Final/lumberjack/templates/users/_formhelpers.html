@@ -1,0 +1,15 @@
+{% macro render_field(field, field_id) %}
+<div class="control-group">
+    <label class="control-label" for={{field_id}}>{{ field.label }}</label>
+    <div class="controls">
+        {% if field.errors %}
+            {{ field(id=field_id, style="border: 2px solid #FF0000") }}
+            {% for error in field.errors %}
+                <div style="color:red">{{ error }}</div>
+            {% endfor %}
+        {% else %}
+            {{ field(id=field_id) }}
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}

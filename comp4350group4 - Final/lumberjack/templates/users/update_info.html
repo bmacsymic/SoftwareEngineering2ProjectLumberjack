@@ -1,0 +1,146 @@
+
+{% extends "base.html" %}
+{% block head %}
+    <script src="/static/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.9.2.custom.css') }}" />
+{% endblock %}
+{% block title %}
+{{g.user.firstname}} {{g.user.lastname}}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function(){   
+    document.getElementById("counterspan").innerHTML = $("#about-me").val().length;
+    var limitnum = 140; // set your int limit for max number of characters
+
+    function limiting(obj, limit) {
+        var cnt = $("#counter > span");
+        var txt = $(obj).val(); 
+        var len = txt.length;
+
+        // check if the current length is over the limit
+        if(len > limit){
+            $(obj).val(txt.substr(0,limit));
+            $(cnt).html(len-1);
+        } 
+        else { 
+            $(cnt).html(len);
+        }
+    }
+
+    $('textarea').keyup(function(){
+        limiting($(this), limitnum);
+    });
+
+    $("#date_of_birth").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+        maxDate: +0
+    });
+    $("#date_of_birth").unbind('keydown')});
+    
+    function validateForm()
+	{		
+		var first=document.forms["update"]["firstname"].value;
+		var last=document.forms["update"]["lastname"].value;
+		var email=document.forms["update"]["email"].value;
+  		if (first==null || first=="") {
+  			alert("First name is required");
+  			return false;
+  		}
+  		if (last==null || last=="") {
+  			alert("Last name is required");
+  			return false;
+  		}
+  		if (email==null || email=="") {
+  			alert("Email is required");
+  			return false;
+  		}
+	}
+</script>
+
+<div class="container" style="padding-top:20px">
+    <form class="form-horizontal well" id="update-user-info" method="POST" onsubmit="return validateForm()" name="update" action="{{url_for('update_info')}}">
+        <fieldset>
+            <legend>Update Profile</legend> 
+            <div class"form-actions">
+                <div class="control-group">
+                    <label class="control-label">Username</label>
+                    <div class="controls">
+                        <span class="input-xlarge uneditable-input">{{g.user.username}}</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="first-name">First Name</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="first-name" name="firstname" value={% if g.user.firstname == None%}""{%else%}"{{g.user.firstname}}"{%endif%}> *
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="last-name">Last Name</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="last-name" name="lastname" value={% if g.user.lastname == None%}""{%else%}"{{g.user.lastname}}"{%endif%}> *
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="email" name="email" value={% if g.user.email == None%}""{%else%}"{{g.user.email}}"{%endif%}> *
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="select-gender">Sex</label>
+                    <div class="controls">
+                        <select id="select-gender" name="gender">
+                            <option></option>
+                            <option {% if g.user.sex == 'F'%}selected="selected"{%endif%}>Female</option>
+                            <option {% if g.user.sex == 'M'%}selected="selected"{%endif%}>Male</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="location">Location</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="location" name="location" value={% if g.user.location == None%}""{%else%}"{{g.user.location}}"{%endif%}>
+                    </div>
+                </div>
+                <div class="control-group">
+                    {% set dob="" %}
+                    {% if g.user.date_of_birth != None %}
+                        {% set dob = g.user.date_of_birth %}
+                    {% endif %}
+                    <label class="control-label" for="date-of-birth">Date of Birth</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="date_of_birth" name="date_of_birth" value ={{dob}}>
+                    </div>
+                </div>			
+                <div class="control-group">
+                    <label class="control-label" for="gravatar-email">Gravatar Email (private)</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="gravatar-email" name="gravatar" value={% if g.user.avatar == None%}""{%else%}{{g.user.avatar}}{%endif%}>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="about-me">About Me</label>
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="about-me" name="about-me" onKeyPress="return charLimit(this)" onKeyUp="return characterCount(this)" rows="3" style="margin: 0px; width: 500px; height: 60px;">{% if g.user.about_me != None%}{{g.user.about_me}}{%endif%}</textarea>
+                        <p id="counter"><span id="counterspan">?</span> / 140 characters</p>				
+                    </div>
+                </div>
+                <div align="right">				
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="reset" class="btn">Cancel</button>
+                </div>
+                * required
+            </div>
+        </fieldset>
+    </form>
+    {% endblock %}

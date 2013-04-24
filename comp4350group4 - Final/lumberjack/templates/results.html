@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}" />
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+	<div id="header-area">
+		<div class="header-title">
+			<h2>All Results</h2>
+		</div>
+		<div class="search-criteria">
+			<h4>Searching for "{{query}}"</h4><hr>
+		</div>		
+	</div>
+	{% if user_list %}
+		<h3>People</h3>
+		{% for user in user_list %}
+			<div class="result-user">
+				<div class="result-user-pic">
+					<a href={{ url_for('display_user_profile', username=user.username) }}>
+						<img src="{{user.get_avatar(40)}}">
+					</a></div>
+				<div class="result-user-name"><a href={{ url_for('display_user_profile', username=user.username) }}>{{ user.lastname }}, {{ user.firstname }}</a></div>				
+			</div>
+			<div class="clear separation"><hr></div>
+		{% endfor %}
+	{% endif %}
+	{% if workout_list %}
+		{% if user_list %}
+			<div class="separation"></div>
+		{% endif %}
+		<h3>Workouts</h3>
+		{% for workout in workout_list %}
+			<div class="result-workout">
+				<div class="result-workout-name"><a href={{url_for('home_index')}}workouts/workout?name={{workout.name.replace(' ', "%20")}}>{{workout.name}}</a></div>				
+			</div>
+			<div class="clear"><hr></div>
+		{% endfor %}
+	{% endif %}
+	{% if not user_list and not workout_list %}
+		<div class="no-results">
+			No results containing all your search terms were found.
+		</div>	
+	{% endif %}
+	</div>
+{% endblock %}

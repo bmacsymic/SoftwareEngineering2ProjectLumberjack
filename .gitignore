@@ -1,0 +1,222 @@
+*.py[cod]
+
+.DS_Store
+
+# C extensions
+*.so
+._*
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# kyle
+lumberjack_ios/LumberJack.xcodeproj/xcuserdata/umpoll22.xcuserdatad/xcschemes/xcschememanagement.plist
+lumberjack_ios/LumberJack.xcodeproj/project.xcworkspace/xcuserdata/umpoll22.xcuserdatad/UserInterfaceState.xcuserstate
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+test.db
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+#swap files
+
+#swap files
+*.swp
+
+venv/
+lumberjack/tmp/nonces/
+lumberjack/tmp/associations/
+lumberjack/tmp/temp/
+tmp/nonces/
+tmp/temp
+tmp/associations/
+lumberjack.db
+db_repository/
+workout_search.db
+=======
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+test.db
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+#swap files
+
+#swap files
+*.swp
+
+venv/
+lumberjack/tmp/nonces/
+lumberjack/tmp/associations/
+lumberjack/tmp/temp/
+tmp/nonces/
+tmp/temp
+tmp/associations/
+lumberjack.db
+db_repository/
+workout_search.db
+test.db/
+
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+test.db
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+#swap files
+
+#swap files
+*.swp
+
+venv/
+lumberjack/tmp/nonces/
+lumberjack/tmp/associations/
+lumberjack/tmp/temp/
+tmp/nonces/
+tmp/temp
+tmp/associations/
+lumberjack.db
+db_repository/
+workout_search.db
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+test.db
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+#swap files
+
+#swap files
+*.swp
+
+venv/
+lumberjack/tmp/nonces/
+lumberjack/tmp/associations/
+lumberjack/tmp/temp/
+tmp/nonces/
+tmp/temp
+tmp/associations/
+lumberjack.db
+db_repository/
+workout_search.db
+test.db/
+
+*DS_Store
+*.xcuserdatad
+env/

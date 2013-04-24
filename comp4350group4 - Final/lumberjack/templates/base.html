@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+<title>{% block title %}Lumberjack{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+
+<script type="text/javascript" src="/static/js/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.9.2.custom.min.css') }}" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap-datetimepicker.min.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="/static/js/libs/moment.min.js"></script>
+<!-- jTable -->
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='jtable/themes/metro/blue/jtable.min.css') }}" />
+<script src="/static/jtable/jquery.jtable.min.js" type="text/javascript"></script>
+
+{% block head %}
+{% endblock %}
+{% block css %}
+{% endblock %}
+{% block script %}
+{% endblock %}
+</head>
+<body>
+<div id="wrap">
+      <div class="container">
+        <div class="navbar navbar-fixed-top">
+		    <div class="navbar-inner">
+		    <div class="container">
+		    	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		         <span class="icon-bar"></span>
+		       </a>
+		        <a class="brand" href="/">LumberJack</a>
+		        <ul class="nav">
+		        	{% if g.user.is_authenticated() == True %}
+		        		<li {% if request.path == url_for('display_user_profile', username=g.user.username) %}class="active"{% endif %}>                   
+		    				<a href={{ url_for('display_user_profile', username=g.user.username) }}>Me</a>                                                
+						</li> 
+						<li {% if request.path == url_for('followers', username=g.user.username) %}class="active"{% endif %}>                   
+		    				<a href={{ url_for('followers', username=g.user.username) }}>Followers</a>
+		    			</li>	
+		            {% endif %}
+
+                    <li {%if request.path == url_for('workout_search') %}class="active"{% endif %}>
+                        <a href={{ url_for('workout_search') }}>Workouts</a>
+                    </li>
+		            <form class="navbar-search pull-left" action="/search" method="GET">
+		            	<input type="text" name="key" class="search-query span2" placeholder="People">
+		          	</form>
+		        </ul>
+		        <ul class="nav pull-right">
+		            {% if g.user.is_authenticated() == True %}
+		            <div class="btn-group">
+		                		<button class="btn dropdown-toggle" data-toggle="dropdown">Hello, {{g.user.username}} <span class="caret"></span></button>
+		                		<ul class="dropdown-menu">
+		                  			<li><a href="{{ url_for('logout') }}">Log Out</a></li>
+		                		</ul>
+		              			</div>
+		            {% else %}
+		                <li>
+		                <a href={{ url_for('login') }}>
+		                    Login
+		                </a>
+		                </li>
+		            {% endif %}
+		        </ul>
+		        </div>
+		    </div>
+		</div>
+      </div>
+      <div id="content">
+      	{% with messages = get_flashed_messages(with_categories=true) %}
+  			{% if messages %}
+    			<div class="flashes container">
+    				{% for category, message in messages %}
+        				{% set alert_type = "success" %}
+        				{%if category == "error" %}
+            			{% set alert_type = "error" %}
+        				{%endif%}
+        				<div class="alert alert-{{alert_type}}">{{ message }}</li></div>
+    				{% endfor %}
+    			</div>
+  			{% endif %}
+		{% endwith %}
+      {% block content %}{% endblock%}
+      </div>
+      <div id="push"></div>
+      <div id="footer">
+    	<div class="container">
+			<!-- Insert Footer Content Here -->    	
+			&copy; Copyright 2013 by <a href="#">Lumberjack</a>.
+		</div>    
+    </div>
+</div>
+    
+</body>
+
+</html>

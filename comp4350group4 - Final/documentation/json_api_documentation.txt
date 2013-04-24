@@ -1,0 +1,54 @@
+This file contains documentation for our json api. This will be useful
+when working on the ios application that will interact with the web app
+through this interface.
+
+-----------------------------------------------------------------------
+Registering a new user
+
+POST request to http://<domain>/users/new
+with the following json object
+{
+    "username": "cool_user",
+    "password": "better_than_yours",
+    "confirm": "better_than_yours"
+}
+where username and password belong to the user being registered
+
+Example using curl:
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "cool_user", "password": "better_than_yours", "confirm": "better_than_yours" }'  http://localhost:5000/users/new
+
+Response:
+On success a json object representing the user is returned
+{
+    "username": "cool_user",
+    "location": null,
+    "firstname": null,
+    "id": 10,
+    "lastname": null,
+    "password": "better_than_yours",
+    "email": null,
+    "sex": null
+}
+
+On an error, a json object containing all the errors is returned
+{
+    "errors": {
+        "username": [
+            "Username cool_user is already taken"
+        ]
+    }
+}
+
+or
+
+{
+    "errors": {
+        "password": [
+            "Passwords do not match!"
+        ],
+        "confirm": [
+            "This field is required."
+        ]
+    }
+}
+----------------------------------------------------------------------------------

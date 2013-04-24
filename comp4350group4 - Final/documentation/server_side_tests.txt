@@ -1,0 +1,7 @@
+There is a file called runtests.py at top level
+ 
+execute this file with python and it will perform all of the unittests in the tests/ directory.                                                                                                                    
+ 
+If you want to add a new test file, just add an import line to the top of this file.
+ 
+Remember to start all your test functions with test_ otherwise unittest will ignore it

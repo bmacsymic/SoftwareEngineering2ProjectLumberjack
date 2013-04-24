@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+	   var creatingNewWorkout = "{{creatingNewWorkout}}";
+	   var workoutName = "{{workoutName}}";
+	</script>
+	
+	<script type="text/javascript" src="/static/js/lumberjack/workout.js"></script>
+	
+	<script type="text/javascript">
+		loadExerciseTypes();
+		
+		if(creatingNewWorkout == "False")
+		{
+			loadWorkout();
+		}
+	</script>
+	
+    <form name="NewWorkoutForm" action="">
+    	<div>&nbsp;</div>
+    	<legend id="LegendWorkoutName" class="pagination-centered">New Workout</legend>
+	    <div id="ErrorDiv" class="pagination-centered"></div>
+	    <div>&nbsp;</div>
+    	<div class="container">
+			<div id="WorkoutDiv" class="container pagination-centered">
+				<div>
+					<div class="row">
+						<div class="span4">
+							<input type="text" id="InputWorkoutName" class="WorkoutEditableField" placeholder="Workout Name">
+						</div>
+						<div class="span4">
+							<select class="WorkoutEditableField" id="InputIntensityLevel">
+								<option value="Easy">Easy</option>
+								<option value="Medium">Medium</option>
+								<option value="Hard">Hard</option>
+							</select>
+						</div>
+						<div class="span4">
+							<label class="checkbox inline">
+								<input id="InputIsPublic" class="WorkoutEditableField" type="checkbox">Public
+							</label>
+							<label class="checkbox inline">
+								<input id="InputIsLikeable" class="WorkoutEditableField" type="checkbox">Likeable
+							</label>
+							<label class="checkbox inline">
+								<input id="InputIsCommentable" class="WorkoutEditableField" type="checkbox">Commentable
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span12">
+							<input type="text" id="InputDescription" class="span12 WorkoutEditableField" placeholder="Description">
+						</div>
+					</div>
+				</div>
+				<legend></legend>
+				<div id="SingleExercise">
+					<div class="Exercise">
+						<legend id="InputOrder">1</legend>
+						<div class="row">
+							<div class="span4">
+								<select style=" text-align:left;" class="ExerciseType WorkoutEditableField" id="InputExerciseType"></select>
+							</div>
+						    <div class="span4">
+						    	<div class="input-append">
+							    	<input type="text" class="WorkoutEditableField" id="InputAmount" placeholder="Amount">
+							    	<span id="InputUnit" class="add-on"></span>
+						    	</div>
+						    </div>
+						    <div class="span4">
+					    		<input type="text" class="WorkoutEditableField" id="InputAdditionalInfo" placeholder="Additional Info">
+					    	</div>
+						</div>
+				    </div>
+				    <legend class="pagination-centered"></legend>
+			    </div>
+		    </div>
+		    <div class="pagination-centered">
+	    		<button type="button" class="btn WorkoutEditableField" id="AddExerciseButton" class="btn">Add Exercise</button>
+	    	</div>
+		</div>
+		
+		<div>&nbsp;</div>
+	    <div class="container pagination-centered">
+	    	{% if creatingNewWorkout == True %}
+	    		<button type="button" id="SubmitButton" class="btn">Submit</button>
+	    	{% else %}
+	    		<button type="button" id="EditButton" class="btn">Edit</button>
+	    	{% endif %}
+	    </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{% if user != None %}
+		{{user.firstname}} {{user.lastname}}
+	{% else %}
+		User profile doesn't exist!
+	{% endif %}
+{% endblock %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/DT_bootstrap.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/js/lumberjack/user.js"></script>
+<script type="text/javascript" src="/static/js/lumberjack/user_measurement.js"></script>
+<script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+<script type=text/javascript src="{{ url_for('static', filename='js/libs/underscore-min.js' ) }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/libs/jquery.validate.min.js' ) }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/libs/jquery-ui-timepicker-addon.js' ) }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/libs/jquery.dataTables.min.js' ) }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/libs/date.js' ) }}"></script>
+
+{% if user != None and g.user.is_authenticated() == True %}	
+	<script type="text/javascript">
+		$(document).ready(function() {   			
+   			{% if g.user.id != user.id %}
+   				$('a#follow').ready(function() {
+					{% if not g.user.is_following(user) %}
+						$("#follow_btn_result").text("Follow this user");
+					{% else %}
+						$("#follow_btn_result").text("Unfollow this user");
+					{% endif %}
+					
+					$('a#follow').bind('click', function() {
+   						followUnfollowUser({{user.id}}, $("#follow_btn_result").text(), "{{url_for('follow_btn')}}");
+   					});
+				});
+			{% else %}
+				var limitnum = 140; // set your int limit for max number of characters    		
+    			$('textarea').keyup(function() {
+	    			limiting($(this), limitnum);
+   				});
+				
+				$('#post-btn').bind('click', function() {
+					postStatus("{{g.user.get_avatar(40)}}", "{{g.user.username}}", "{{url_for('post_status')}}");
+				});
+										
+				lastAddedLiveFunc("{{url_for('static', filename='loading.gif')}}", "{{ url_for('user_feeds') }}");
+				
+				$(window).scroll(function() {
+        			var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
+        			var  scrolltrigger = 0.95;
+
+       				if ((wintop/(docheight-winheight)) > scrolltrigger) {
+       					if (isLastPage() != true) {
+         					lastAddedLiveFunc("{{url_for('static', filename='loading.gif')}}", "{{ url_for('user_feeds') }}");}
+         			}
+   				});
+			{% endif %}
+		});		
+	</script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% if user != None %}
+		<div class="profile-pic">
+				<img src="{{user.get_avatar(200)}}">				
+		</div>
+		<div class="user-bio">
+			<div class="user-name"><h1>{{user.lastname}}, {{user.firstname}}</h1></div>
+			<div class="user-hashtag"><h4>(#{{user.username}})</h4></div>
+			<div class="clear"></div>
+			{% if user.sex != None and user.sex != "" %}
+				{% if user.sex == 'M' %}
+					<div class="user-gender"><h5>- Male{% if user.get_user_age() != "" %}, {{user.get_user_age()}} {% endif %}</h5></div>
+				{% else %}
+					<div class="user-gender"><h5>- Female</h5></div>
+				{% endif %}
+			{% endif %}		
+			{% if user.location != None and user.location != "" %}
+				<div class="user-location"><h5>- Lives in {{user.location}}</h5></div>
+			{% endif %}		
+			<div class="user-joined-date"><h5>- Joined on {{user.registered_at.strftime("%B %d, %Y")}}</h5></div>
+			{% if user.about_me != None and user.about_me != "" %}
+				<div class="user-about-me"><h5>&quot {{user.about_me}} &quot</h5></div>	
+			{% endif %}		
+		</div>
+		{% if g.user.is_authenticated() == True %} 
+			{% if g.user.id == user.id %}
+				<div class="update-info">
+					<a class="btn btn-large" href="{{url_for('update_info')}}">Update Info</a>
+				</div>
+			{% else %}
+				<div class="user-follow-btn">
+            	<a class="btn btn-primary" href=# id=follow><span id=follow_btn_result>Unknown</span></a>
+            	</div>
+			{% endif %}
+			{% else %}
+				<div class="clear"></div>
+		{% endif %}
+		<hr>
+		{% if g.user.is_authenticated() == True and g.user.id == user.id %}			
+			<div class="user-sidebar">
+				<div class="user-following-stats"><a href={{ url_for('followers', username=g.user.username) }} class="fill-div"><strong>{{user.followed.count()}}</strong><br/>Following</a></div>
+				<div class="user-followers-stats"><a href={{ url_for('followers', username=g.user.username) }} class="fill-div"><strong>{{user.followers.count()}}</strong><br/>Followers</a></div>
+				<div class="clear"></div>
+				<ul class="nav nav-list">
+					<li class="nav-header">Measurements</li>
+					<li>{% include 'user_measurements/measurement_form.html' %}<a href="#add_user_measurement"  data-toggle="modal">Add measurement</a></li>
+                    <li>{% include 'user_measurements/measurement_summary.html' %}<a href="#measurement_summary" onclick='getMeasurementSummary();' data-toggle="modal">Tracked Measurements</a></li>
+          			<li class="nav-header">Workouts</li>
+          			<li><a href="{{ url_for('get_workout_page') }}">Create new workout</a></li>
+          			<li class="nav-header">Others</li>
+          			<li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          			<li class="divider"></li>
+        		</ul>
+			</div>
+		
+			<div class="news-feed">
+				<div id="user-input-box">
+                        <textarea class="input-xlarge status-input" id="status-input" name="status-input" onKeyPress="return charLimit(this)" onKeyUp="return characterCount(this)" rows="2" style="margin: 0px;"></textarea>
+                        <p id="counter"><span id="counterspan">0</span> / 140 characters<input type="submit" name="post-status" class="btn btn-small" id="post-btn" value="Post" /></p>                        			
+                    </div>
+				<h3>News Feed</h3>
+				<div class="items">
+				</div>
+				<div id="lastPostsLoader"></div>
+			</div>	
+		{% endif %}
+	{% else %}
+		<h1 align="center">Oops! User profile doesn't exist!</h1>
+		<hr>
+	{% endif %}
+</div>
+{% endblock %}

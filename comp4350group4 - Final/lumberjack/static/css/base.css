@@ -1,0 +1,22 @@
+html, body {
+	height: 100%;
+}
+	
+#wrap {
+    min-height: 100%;
+    position: relative;
+    margin: 0 auto -150px;
+}
+	
+#push {
+	height: auto;
+	padding-bottom:90px;
+}
+	
+#footer {
+    height: auto;
+    width: 100%;
+    background: #eef;
+    position: absolute;
+    bottom: 0;
+}

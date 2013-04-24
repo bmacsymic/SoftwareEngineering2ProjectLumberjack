@@ -1,0 +1,118 @@
+<script type="text/javascript">
+current_user = '{{ g.user.username }}';
+$(document).ready(function(){
+    $.validator.addMethod(
+        "datetime",
+        function(value, element){
+            if(!value || value.length == 0) return false;
+            else if(_.size(value.split(" ")) != 2) return false;
+            else {
+                var dt = value.split(" ");
+                var time = dt[1].split(":");
+                console.log(dt[1]); 
+                if(Date.parseExact(dt[0], "M/d/yyyy") == null) return false;
+                else if(_.size(time) != 2) return false;
+                else{
+                    var hour = parseInt(time[0], 10);
+                    var min = parseInt(time[1], 10);
+                    if(_.isNaN(hour) || _.isNaN(min)) return false;
+                    if(hour < 0 || hour > 23 || min < 0 || min > 59) return false;
+                    else return true;
+                }
+            }
+        },
+        "Invalid Datetime");
+
+    $('#measurement_date').datetimepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-100:+0",
+    });
+    $('#measurement_form').validate(
+        {
+        rules: {
+            measurement_type: {
+                required: true
+            },
+            measurement_value: {
+                required: true,
+                number: true
+            },
+            measurement_unit: {
+                required: true
+            },
+            measurement_date: {
+                datetime: true
+            }
+
+        },
+        highlight: function(element) {
+            $(element).closest('.control-group').removeClass('success').addClass('error');
+        },
+        success: function(element) {
+            element
+            .text('OK!').addClass('valid')
+            .closest('.control-group').removeClass('error').addClass('success');
+        }
+    });
+    $("#save_measurement").click(function(){
+        var avatar = "{{g.user.get_avatar(40)}}"
+        save_measurement(current_user, avatar);
+    });
+});
+
+</script>
+
+<div id="add_user_measurement" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Add Measurement" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Add Measurement</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" id="measurement_form">
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label" for="measurement_type">What are you measuring?</label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" name="measurement_type" id="measurement_type">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="measurement_value">Value</label>
+                    <div class="controls">
+                        <input type="text" name="measurement_value" id="measurement_value" placeholder="Value">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="measurement_unit">Unit</label>
+                    <div class="controls">
+                        <input type="text" name="measurement_unit" id="measurement_unit" placeholder="Unit">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="measurement_date">Date</label>
+                    <div class="controls">
+                        <input type="text" name="measurement_date" id="measurement_date">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" id="close_measurement">close</button>
+        <button class="btn btn-primary" id="save_measurement">save</button>
+    </div>
+</div>
+
+<div id="modal-confirm" class="modal hide fade">
+    <div class="modal-header">
+      <h3>Error</h3>
+    </div>
+    <div class="modal-body">
+      <p>Unable to create new measurement</p>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:$('#modal-confirm').modal('hide')" class="btn secondary">OK</a>
+    </div>
+</div>
+
